@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { X } from 'lucide-react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import EditableText from '../components/admin/EditableText';
 
 interface ProcessStep {
   num: string;
@@ -62,7 +63,7 @@ export default function Process() {
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
             className="inline-block mb-6 px-4 py-1.5 rounded-full border border-white/10 bg-white/5 backdrop-blur-md text-sm font-medium text-gray-300"
           >
-            Manufacturing Process
+            <EditableText id="process_badge" defaultText="Manufacturing Process" />
           </motion.div>
           <motion.h1 
             className="text-5xl md:text-7xl font-bold mb-8 tracking-tighter"
@@ -70,9 +71,9 @@ export default function Process() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
           >
-            완벽을 향한 여정.<br />
+            <EditableText id="process_title1" defaultText="완벽을 향한 여정." /><br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-200 to-gray-600">
-              제조 공정.
+              <EditableText id="process_title2" defaultText="제조 공정." />
             </span>
           </motion.h1>
           <motion.p 
@@ -81,16 +82,20 @@ export default function Process() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
           >
-            엄격한 품질 관리와 체계적인 11단계 공정으로<br className="hidden md:block" />
-            무결점 제품을 생산합니다.
+            <EditableText id="process_desc1" defaultText="엄격한 품질 관리와 체계적인 11단계 공정으로" /><br className="hidden md:block" />
+            <EditableText id="process_desc2" defaultText="무결점 제품을 생산합니다." />
           </motion.p>
         </section>
 
         {/* Process Steps */}
         <section className="max-w-7xl mx-auto px-6 mb-32">
           <div className="text-center mb-20">
-            <h2 className="text-3xl font-bold mb-4 tracking-tight">11단계 제조 프로세스</h2>
-            <p className="text-gray-400 font-light">각 공정을 클릭하여 상세 내용을 확인하세요.</p>
+            <h2 className="text-3xl font-bold mb-4 tracking-tight">
+              <EditableText id="process_steps_title" defaultText="11단계 제조 프로세스" />
+            </h2>
+            <p className="text-gray-400 font-light">
+              <EditableText id="process_steps_desc" defaultText="각 공정을 클릭하여 상세 내용을 확인하세요." />
+            </p>
           </div>
           
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
@@ -106,10 +111,14 @@ export default function Process() {
                 transition={{ duration: 0.8, delay: i * 0.05, ease: [0.16, 1, 0.3, 1] }}
               >
                 <div className="absolute -top-6 left-1/2 -translate-x-1/2 w-12 h-12 rounded-full bg-[#1a1a1a] border border-white/10 flex items-center justify-center text-white font-medium text-sm shadow-xl group-hover:bg-white group-hover:text-black transition-colors duration-500 z-30">
-                  {step.num}
+                  <EditableText id={`process_step_num_${i}`} defaultText={step.num} />
                 </div>
-                <h3 className="text-lg font-bold mt-8 mb-2 tracking-tight transition-opacity duration-300 group-hover:opacity-0 relative z-10">{step.title}</h3>
-                <p className="text-gray-500 text-xs leading-relaxed font-light transition-opacity duration-300 group-hover:opacity-0 relative z-10">{step.desc}</p>
+                <h3 className="text-lg font-bold mt-8 mb-2 tracking-tight transition-opacity duration-300 group-hover:opacity-0 relative z-10">
+                  <EditableText id={`process_step_title_${i}`} defaultText={step.title} />
+                </h3>
+                <p className="text-gray-500 text-xs leading-relaxed font-light transition-opacity duration-300 group-hover:opacity-0 relative z-10">
+                  <EditableText id={`process_step_desc_${i}`} defaultText={step.desc} />
+                </p>
                 <div className="absolute inset-0 bg-[#111]/95 backdrop-blur-md opacity-0 group-hover:opacity-100 transition-all duration-300 rounded-[2rem] flex items-center justify-center z-20 border border-white/10">
                   <span className="text-white font-medium translate-y-2 group-hover:translate-y-0 transition-all duration-300">자세히 보기</span>
                 </div>
@@ -154,14 +163,18 @@ export default function Process() {
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
           >
             <div className="absolute inset-0 bg-gradient-to-b from-white/[0.02] to-transparent" />
-            <h2 className="text-3xl md:text-4xl font-bold mb-16 tracking-tight relative z-10">핵심 품질 성과.</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-16 tracking-tight relative z-10">
+              <EditableText id="process_kpi_title" defaultText="핵심 품질 성과." />
+            </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 md:gap-12 relative z-10">
               {kpis.map((kpi, i) => (
                 <div key={i} className="flex flex-col items-center">
                   <div className="text-5xl md:text-6xl font-bold text-white mb-4 tracking-tighter">
-                    {kpi.value}
+                    <EditableText id={`process_kpi_val_${i}`} defaultText={kpi.value} />
                   </div>
-                  <p className="text-gray-400 text-sm tracking-wide font-medium">{kpi.label}</p>
+                  <p className="text-gray-400 text-sm tracking-wide font-medium">
+                    <EditableText id={`process_kpi_label_${i}`} defaultText={kpi.label} />
+                  </p>
                 </div>
               ))}
             </div>

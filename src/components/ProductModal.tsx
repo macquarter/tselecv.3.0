@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'motion/react';
 import { X } from 'lucide-react';
 import { Product } from '../types';
+import EditableText from './admin/EditableText';
 
 interface ProductModalProps {
   product: Product;
@@ -61,22 +62,26 @@ export default function ProductModal({ product, onClose }: ProductModalProps) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 0.5 }}
           >
-            <h4 className="text-sm font-bold tracking-widest text-gray-400 uppercase mb-6">주요 기능 및 특징</h4>
+            <h4 className="text-sm font-bold tracking-widest text-gray-400 uppercase mb-6">
+              <EditableText id="product-modal-features-title" defaultText="주요 기능 및 특징" />
+            </h4>
             <ul className="space-y-4">
               {product.details?.map((detail, idx) => (
                 <li key={idx} className="flex items-start gap-4 p-4 rounded-2xl bg-[#111] border border-white/5">
                   <div className="w-1.5 h-1.5 rounded-full bg-white mt-2 shrink-0" />
-                  <span className="text-gray-300 leading-relaxed font-light">{detail}</span>
+                  <span className="text-gray-300 leading-relaxed font-light">
+                    <EditableText id={`product-${product.id}-detail-${idx}`} defaultText={detail} />
+                  </span>
                 </li>
               ))}
             </ul>
 
             <div className="mt-12 flex flex-col sm:flex-row gap-4">
               <button className="flex-1 py-4 bg-white text-black font-medium rounded-xl hover:bg-gray-200 transition-colors">
-                상담 문의하기
+                <EditableText id="product-modal-btn-1" defaultText="상담 문의하기" />
               </button>
               <button className="flex-1 py-4 bg-transparent border border-white/10 text-white font-medium rounded-xl hover:bg-white/5 transition-colors">
-                스펙 시트 다운로드
+                <EditableText id="product-modal-btn-2" defaultText="스펙 시트 다운로드" />
               </button>
             </div>
           </motion.div>

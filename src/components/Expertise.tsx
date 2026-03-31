@@ -1,5 +1,7 @@
 import { motion, useScroll, useTransform } from 'motion/react';
 import { useRef } from 'react';
+import EditableText from './admin/EditableText';
+import EditableImage from './admin/EditableImage';
 
 const expertiseData = [
   {
@@ -54,10 +56,14 @@ export default function Expertise() {
         
         <div className="text-center mb-10 z-50 relative">
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-blue-500/10 blur-[80px] rounded-full pointer-events-none"></div>
-          <div className="text-[11px] font-bold tracking-[0.3em] text-blue-400 uppercase mb-4">Our Expertise</div>
+          <div className="text-[11px] font-bold tracking-[0.3em] text-blue-400 uppercase mb-4">
+            <EditableText id="expertise_badge" defaultText="Our Expertise" />
+          </div>
           <h2 className="text-3xl md:text-5xl font-bold tracking-tighter text-white leading-tight">
-            가전·의료·태양광<br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-200 to-gray-500">3대 핵심 산업을 위한 맞춤형 솔루션</span>
+            <EditableText id="expertise_title1" defaultText="가전·의료·태양광" /><br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-200 to-gray-500">
+              <EditableText id="expertise_title2" defaultText="3대 핵심 산업을 위한 맞춤형 솔루션" />
+            </span>
           </h2>
         </div>
 
@@ -70,12 +76,18 @@ export default function Expertise() {
             <div className="w-full md:w-1/2 h-48 md:h-full relative">
               <div className="absolute inset-0 bg-gradient-to-r from-transparent to-zinc-900/90 z-10 md:block hidden"></div>
               <div className="absolute inset-0 bg-gradient-to-t from-zinc-900/90 to-transparent z-10 md:hidden block"></div>
-              <img src={expertiseData[0].img} alt={expertiseData[0].title} className="w-full h-full object-cover opacity-60 mix-blend-luminosity" />
+              <EditableImage id={`expertise_img_0`} defaultSrc={expertiseData[0].img} alt={expertiseData[0].title} className="w-full h-full object-cover opacity-60 mix-blend-luminosity" />
             </div>
             <div className="w-full md:w-1/2 p-8 md:p-12 flex flex-col justify-center relative z-20">
-              <div className={`text-xs font-bold tracking-[0.2em] ${expertiseData[0].color} mb-3 uppercase`}>{expertiseData[0].subtitle}</div>
-              <h3 className="text-3xl md:text-4xl font-bold text-white mb-4 tracking-tight">{expertiseData[0].title}</h3>
-              <p className="text-gray-400 leading-relaxed font-light text-lg">{expertiseData[0].desc}</p>
+              <div className={`text-xs font-bold tracking-[0.2em] ${expertiseData[0].color} mb-3 uppercase`}>
+                <EditableText id={`expertise_subtitle_0`} defaultText={expertiseData[0].subtitle} />
+              </div>
+              <h3 className="text-3xl md:text-4xl font-bold text-white mb-4 tracking-tight">
+                <EditableText id={`expertise_title_0`} defaultText={expertiseData[0].title} />
+              </h3>
+              <p className="text-gray-400 leading-relaxed font-light text-lg">
+                <EditableText id={`expertise_desc_0`} defaultText={expertiseData[0].desc} />
+              </p>
             </div>
           </motion.div>
 
@@ -87,12 +99,18 @@ export default function Expertise() {
             <div className="w-full md:w-1/2 h-48 md:h-full relative">
               <div className="absolute inset-0 bg-gradient-to-r from-transparent to-zinc-900/90 z-10 md:block hidden"></div>
               <div className="absolute inset-0 bg-gradient-to-t from-zinc-900/90 to-transparent z-10 md:hidden block"></div>
-              <img src={expertiseData[1].img} alt={expertiseData[1].title} className="w-full h-full object-cover opacity-60 mix-blend-luminosity" />
+              <EditableImage id={`expertise_img_1`} defaultSrc={expertiseData[1].img} alt={expertiseData[1].title} className="w-full h-full object-cover opacity-60 mix-blend-luminosity" />
             </div>
             <div className="w-full md:w-1/2 p-8 md:p-12 flex flex-col justify-center relative z-20">
-              <div className={`text-xs font-bold tracking-[0.2em] ${expertiseData[1].color} mb-3 uppercase`}>{expertiseData[1].subtitle}</div>
-              <h3 className="text-3xl md:text-4xl font-bold text-white mb-4 tracking-tight">{expertiseData[1].title}</h3>
-              <p className="text-gray-400 leading-relaxed font-light text-lg">{expertiseData[1].desc}</p>
+              <div className={`text-xs font-bold tracking-[0.2em] ${expertiseData[1].color} mb-3 uppercase`}>
+                <EditableText id={`expertise_subtitle_1`} defaultText={expertiseData[1].subtitle} />
+              </div>
+              <h3 className="text-3xl md:text-4xl font-bold text-white mb-4 tracking-tight">
+                <EditableText id={`expertise_title_1`} defaultText={expertiseData[1].title} />
+              </h3>
+              <p className="text-gray-400 leading-relaxed font-light text-lg">
+                <EditableText id={`expertise_desc_1`} defaultText={expertiseData[1].desc} />
+              </p>
             </div>
           </motion.div>
 
@@ -104,12 +122,18 @@ export default function Expertise() {
             <div className="w-full md:w-1/2 h-48 md:h-full relative">
               <div className="absolute inset-0 bg-gradient-to-r from-transparent to-zinc-900/90 z-10 md:block hidden"></div>
               <div className="absolute inset-0 bg-gradient-to-t from-zinc-900/90 to-transparent z-10 md:hidden block"></div>
-              <img src={expertiseData[2].img} alt={expertiseData[2].title} className="w-full h-full object-cover opacity-60 mix-blend-luminosity" />
+              <EditableImage id={`expertise_img_2`} defaultSrc={expertiseData[2].img} alt={expertiseData[2].title} className="w-full h-full object-cover opacity-60 mix-blend-luminosity" />
             </div>
             <div className="w-full md:w-1/2 p-8 md:p-12 flex flex-col justify-center relative z-20">
-              <div className={`text-xs font-bold tracking-[0.2em] ${expertiseData[2].color} mb-3 uppercase`}>{expertiseData[2].subtitle}</div>
-              <h3 className="text-3xl md:text-4xl font-bold text-white mb-4 tracking-tight">{expertiseData[2].title}</h3>
-              <p className="text-gray-400 leading-relaxed font-light text-lg">{expertiseData[2].desc}</p>
+              <div className={`text-xs font-bold tracking-[0.2em] ${expertiseData[2].color} mb-3 uppercase`}>
+                <EditableText id={`expertise_subtitle_2`} defaultText={expertiseData[2].subtitle} />
+              </div>
+              <h3 className="text-3xl md:text-4xl font-bold text-white mb-4 tracking-tight">
+                <EditableText id={`expertise_title_2`} defaultText={expertiseData[2].title} />
+              </h3>
+              <p className="text-gray-400 leading-relaxed font-light text-lg">
+                <EditableText id={`expertise_desc_2`} defaultText={expertiseData[2].desc} />
+              </p>
             </div>
           </motion.div>
         </div>

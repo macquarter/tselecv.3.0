@@ -1,5 +1,7 @@
 import { motion } from 'motion/react';
 import { Product } from '../types';
+import EditableText from './admin/EditableText';
+import EditableImage from './admin/EditableImage';
 
 const products: Product[] = [
   { 
@@ -65,8 +67,8 @@ export default function Products({ onSelectProduct }: ProductsProps) {
             viewport={{ once: true }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           >
-            다양한 산업을 위한 <br />
-            전자부품 솔루션.
+            <EditableText id="products-title-1" defaultText="다양한 산업을 위한" /> <br />
+            <EditableText id="products-title-2" defaultText="전자부품 솔루션." />
           </motion.h2>
         </div>
 
@@ -86,21 +88,21 @@ export default function Products({ onSelectProduct }: ProductsProps) {
                 whileHover="hover"
                 className="relative w-full h-full rounded-[2rem] overflow-hidden bg-[#0a0a0a] border border-white/5 cursor-pointer group"
               >
-                <motion.img 
-                  layoutId={`img-${product.id}`}
-                  src={product.img} 
-                  alt={product.name} 
-                  className="absolute inset-0 w-full h-full object-cover opacity-60"
-                  variants={{
-                    hover: { scale: 1.05, opacity: 0.8 }
-                  }}
-                  transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                <EditableImage 
+                  id={`product-${product.id}-img`}
+                  defaultSrc={product.img}
+                  alt={product.name}
+                  className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity duration-700"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent pointer-events-none"></div>
                 <div className="absolute inset-0 bg-gradient-to-b from-white/[0.02] to-transparent pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 <div className="absolute bottom-0 left-0 p-8 z-20 pointer-events-none">
-                  <motion.h3 layoutId={`title-${product.id}`} className="text-2xl font-bold mb-2 text-white tracking-tight">{product.name}</motion.h3>
-                  <motion.p layoutId={`desc-${product.id}`} className="text-gray-400 font-light">{product.desc}</motion.p>
+                  <motion.h3 layoutId={`title-${product.id}`} className="text-2xl font-bold mb-2 text-white tracking-tight">
+                    <EditableText id={`product-${product.id}-name`} defaultText={product.name} />
+                  </motion.h3>
+                  <motion.p layoutId={`desc-${product.id}`} className="text-gray-400 font-light">
+                    <EditableText id={`product-${product.id}-desc`} defaultText={product.desc} />
+                  </motion.p>
                 </div>
               </motion.div>
             </motion.div>

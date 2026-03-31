@@ -2,17 +2,19 @@ import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { useNavigate } from 'react-router-dom';
 import { Lock } from 'lucide-react';
+import { useAdmin } from '../../contexts/AdminContext';
 
 export default function AdminLogin() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState(false);
   const navigate = useNavigate();
+  const { login } = useAdmin();
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
     // 임시 하드코딩된 비밀번호 (실제 서비스에서는 서버 인증 필요)
     if (password === 'admin123!') {
-      localStorage.setItem('isAdmin', 'true');
+      login();
       navigate('/admin/dashboard');
     } else {
       setError(true);

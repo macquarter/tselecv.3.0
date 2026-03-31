@@ -2,6 +2,8 @@ import { motion } from 'motion/react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import ProductNav from '../components/ProductNav';
+import EditableText from '../components/admin/EditableText';
+import EditableImage from '../components/admin/EditableImage';
 
 export default function ProductsPage() {
   const products = [
@@ -68,7 +70,7 @@ export default function ProductsPage() {
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
             className="inline-block mb-6 px-4 py-1.5 rounded-full border border-white/10 bg-white/5 backdrop-blur-md text-sm font-medium text-gray-300"
           >
-            Products
+            <EditableText id="prod_badge" defaultText="Products" />
           </motion.div>
           <motion.h1 
             className="text-5xl md:text-7xl font-bold mb-8 tracking-tighter"
@@ -76,9 +78,9 @@ export default function ProductsPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
           >
-            모든 혁신의 중심.<br />
+            <EditableText id="prod_title1" defaultText="모든 혁신의 중심." /><br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-200 to-gray-600">
-              태승전자 제어 솔루션.
+              <EditableText id="prod_title2" defaultText="태승전자 제어 솔루션." />
             </span>
           </motion.h1>
           <motion.p 
@@ -87,8 +89,8 @@ export default function ProductsPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
           >
-            가전부터 산업용 장비까지,<br className="hidden md:block" />
-            완벽한 제어를 위한 마이크로컨트롤러 라인업.
+            <EditableText id="prod_desc1" defaultText="가전부터 산업용 장비까지," /><br className="hidden md:block" />
+            <EditableText id="prod_desc2" defaultText="완벽한 제어를 위한 마이크로컨트롤러 라인업." />
           </motion.p>
         </section>
 
@@ -107,12 +109,17 @@ export default function ProductsPage() {
                 transition={{ duration: 0.8, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
               >
                 <div className="p-10 z-10 relative">
-                  <h3 className="text-3xl font-bold mb-3 tracking-tight group-hover:text-white transition-colors">{product.title}</h3>
-                  <p className="text-gray-400 text-sm leading-relaxed font-light max-w-[80%]">{product.desc}</p>
+                  <h3 className="text-3xl font-bold mb-3 tracking-tight group-hover:text-white transition-colors">
+                    <EditableText id={`prod_item_title_${i}`} defaultText={product.title} />
+                  </h3>
+                  <p className="text-gray-400 text-sm leading-relaxed font-light max-w-[80%]">
+                    <EditableText id={`prod_item_desc_${i}`} defaultText={product.desc} />
+                  </p>
                 </div>
                 <div className="absolute inset-0 top-1/3 mt-4 overflow-hidden rounded-b-[2rem]">
-                  <img 
-                    src={product.img} 
+                  <EditableImage 
+                    id={`prod_item_img_${i}`}
+                    defaultSrc={product.img} 
                     alt={product.title} 
                     className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105 opacity-60 group-hover:opacity-90"
                   />

@@ -1,6 +1,7 @@
 import { motion } from 'motion/react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import EditableText from '../components/admin/EditableText';
 
 export default function Organization() {
   const departments = [
@@ -54,7 +55,7 @@ export default function Organization() {
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
             className="inline-block mb-6 px-4 py-1.5 rounded-full border border-white/10 bg-white/5 backdrop-blur-md text-sm font-medium text-gray-300"
           >
-            Organization
+            <EditableText id="org_badge" defaultText="Organization" />
           </motion.div>
           <motion.h1 
             className="text-5xl md:text-7xl font-bold mb-8 tracking-tighter"
@@ -62,9 +63,9 @@ export default function Organization() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
           >
-            혁신을 이끄는<br />
+            <EditableText id="org_title1" defaultText="혁신을 이끄는" /><br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-200 to-gray-600">
-              전문가 그룹.
+              <EditableText id="org_title2" defaultText="전문가 그룹." />
             </span>
           </motion.h1>
           <motion.p 
@@ -73,8 +74,8 @@ export default function Organization() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
           >
-            각 분야의 전문가들이 모여<br className="hidden md:block" />
-            최고의 시너지를 창출합니다.
+            <EditableText id="org_desc1" defaultText="각 분야의 전문가들이 모여" /><br className="hidden md:block" />
+            <EditableText id="org_desc2" defaultText="최고의 시너지를 창출합니다." />
           </motion.p>
         </section>
 
@@ -88,8 +89,12 @@ export default function Organization() {
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
           >
             <div className="absolute inset-0 bg-gradient-to-b from-white/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-            <p className="text-gray-400 font-medium tracking-widest mb-4 uppercase text-sm relative z-10">대표이사</p>
-            <h2 className="text-5xl md:text-6xl font-bold tracking-tight relative z-10">유태호</h2>
+            <p className="text-gray-400 font-medium tracking-widest mb-4 uppercase text-sm relative z-10">
+              <EditableText id="org_ceo_title" defaultText="대표이사" />
+            </p>
+            <h2 className="text-5xl md:text-6xl font-bold tracking-tight relative z-10">
+              <EditableText id="org_ceo_name" defaultText="유태호" />
+            </h2>
           </motion.div>
         </section>
 
@@ -98,7 +103,7 @@ export default function Organization() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {departments.map((dept, i) => (
               <motion.div 
-                key={dept.name}
+                key={i}
                 className="bg-[#0a0a0a] border border-white/5 rounded-[2rem] p-10 hover:bg-[#111] transition-colors duration-500 group relative overflow-hidden"
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -113,12 +118,14 @@ export default function Organization() {
                       <path d={dept.icon} />
                     </svg>
                   </div>
-                  <h3 className="text-2xl font-bold mb-6 tracking-tight">{dept.name}</h3>
+                  <h3 className="text-2xl font-bold mb-6 tracking-tight">
+                    <EditableText id={`org_dept_name_${i}`} defaultText={dept.name} />
+                  </h3>
                   <ul className="space-y-3">
                     {dept.tasks.map((task, j) => (
                       <li key={j} className="flex items-start text-gray-400 text-sm leading-relaxed font-light">
                         <span className="w-1.5 h-1.5 rounded-full bg-gray-600 mr-3 mt-1.5" />
-                        {task}
+                        <EditableText id={`org_dept_task_${i}_${j}`} defaultText={task} />
                       </li>
                     ))}
                   </ul>

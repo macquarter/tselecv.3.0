@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { Menu, X, ChevronDown } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import Logo from './Logo';
+import EditableText from './admin/EditableText';
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -26,34 +27,38 @@ export default function Navbar() {
 
   const navLinks = [
     {
+      id: 'nav-1',
       name: '회사소개',
       href: '/greeting',
       dropdown: [
-        { name: '인사말', href: '/greeting' },
-        { name: '회사연혁', href: '/history' },
-        { name: '회사전경', href: '/facility' },
-        { name: '인증현황', href: '/certifications' },
-        { name: '조직도', href: '/organization' },
-        { name: '오시는 길', href: '/directions' },
+        { id: 'nav-1-1', name: '인사말', href: '/greeting' },
+        { id: 'nav-1-2', name: '회사연혁', href: '/history' },
+        { id: 'nav-1-3', name: '회사전경', href: '/facility' },
+        { id: 'nav-1-4', name: '인증현황', href: '/certifications' },
+        { id: 'nav-1-5', name: '조직도', href: '/organization' },
+        { id: 'nav-1-6', name: '오시는 길', href: '/directions' },
       ]
     },
     {
+      id: 'nav-2',
       name: '제품소개',
       href: '/products',
       dropdown: [
-        { name: '제품영역', href: '/products' },
-        { name: '메인 컨트롤러', href: '/main-controller' },
-        { name: '디스플레이', href: '/display' },
-        { name: '기타', href: '/others' },
-        { name: '공정도', href: '/process' },
+        { id: 'nav-2-1', name: '제품영역', href: '/products' },
+        { id: 'nav-2-2', name: '메인 컨트롤러', href: '/main-controller' },
+        { id: 'nav-2-3', name: '디스플레이', href: '/display' },
+        { id: 'nav-2-4', name: '기타', href: '/others' },
+        { id: 'nav-2-5', name: '공정도', href: '/process' },
       ]
     },
     {
+      id: 'nav-3',
       name: '고객지원',
       href: '/#faq',
       dropdown: [
-        { name: '자주 묻는 질문', href: '/#faq' },
-        { name: '자료실', href: '/downloads' },
+        { id: 'nav-3-1', name: '자주 묻는 질문', href: '/#faq' },
+        { id: 'nav-3-2', name: '공지사항', href: '/news' },
+        { id: 'nav-3-3', name: '자료실', href: '/downloads' },
       ]
     },
   ];
@@ -78,15 +83,15 @@ export default function Navbar() {
               }
             }}
           >
-            <Logo className="w-8 h-8" />
+            <Logo />
           </Link>
 
           <div className="hidden md:flex items-center gap-8 text-sm font-medium text-gray-300 tracking-wide">
             {navLinks.map((link) => (
               <div 
-                key={link.name} 
+                key={link.id} 
                 className="relative group h-16 flex items-center"
-                onMouseEnter={() => setActiveDropdown(link.name)}
+                onMouseEnter={() => setActiveDropdown(link.id)}
                 onMouseLeave={() => setActiveDropdown(null)}
               >
                 {link.href.startsWith('/') ? (
@@ -96,26 +101,28 @@ export default function Navbar() {
                     onClick={(e) => {
                       if (link.href.includes('#')) {
                         const hash = link.href.split('#')[1];
-                        if (location.pathname === '/') {
+                        if (location.pathname === '/admin/dashboard') {
                           e.preventDefault();
+                          document.getElementById(hash)?.scrollIntoView({ behavior: 'smooth' });
+                        } else if (location.pathname === '/') {
                           document.getElementById(hash)?.scrollIntoView({ behavior: 'smooth' });
                         }
                       }
                     }}
                   >
-                    {link.name}
+                    <EditableText id={`navbar-${link.id}`} defaultText={link.name} />
                     {link.dropdown && <ChevronDown size={14} className="opacity-50" />}
                   </Link>
                 ) : (
                   <a href={link.href} className="hover:text-white transition-colors flex items-center gap-1">
-                    {link.name}
+                    <EditableText id={`navbar-${link.id}`} defaultText={link.name} />
                   </a>
                 )}
 
                 {/* Dropdown */}
                 {link.dropdown && (
                   <AnimatePresence>
-                    {activeDropdown === link.name && (
+                    {activeDropdown === link.id && (
                       <motion.div
                         initial={{ opacity: 0, y: 10, scale: 0.95 }}
                         animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -125,13 +132,15 @@ export default function Navbar() {
                       >
                         {link.dropdown.map((dropLink) => (
                           <Link
-                            key={dropLink.name}
+                            key={dropLink.id}
                             to={dropLink.href}
                             onClick={(e) => {
                               if (dropLink.href.includes('#')) {
                                 const hash = dropLink.href.split('#')[1];
-                                if (location.pathname === '/') {
+                                if (location.pathname === '/admin/dashboard') {
                                   e.preventDefault();
+                                  document.getElementById(hash)?.scrollIntoView({ behavior: 'smooth' });
+                                } else if (location.pathname === '/') {
                                   document.getElementById(hash)?.scrollIntoView({ behavior: 'smooth' });
                                 }
                               }
@@ -142,7 +151,7 @@ export default function Navbar() {
                                 : 'text-gray-400 hover:bg-white/5 hover:text-white hover:pl-5'
                             }`}
                           >
-                            {dropLink.name}
+                            <EditableText id={`navbar-${dropLink.id}`} defaultText={dropLink.name} />
                           </Link>
                         ))}
                       </motion.div>
@@ -158,13 +167,15 @@ export default function Navbar() {
               to="/#contact" 
               className="px-5 py-2.5 bg-white hover:bg-gray-200 text-black text-sm font-medium rounded-lg transition-all"
               onClick={(e) => {
-                if (location.pathname === '/') {
+                if (location.pathname === '/admin/dashboard') {
                   e.preventDefault();
+                  document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+                } else if (location.pathname === '/') {
                   document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
                 }
               }}
             >
-              문의하기
+              <EditableText id="navbar-contact-btn" defaultText="문의하기" />
             </Link>
           </div>
 
@@ -190,7 +201,7 @@ export default function Navbar() {
             </button>
             <div className="flex flex-col items-center gap-8 text-2xl font-semibold tracking-tight w-full px-8">
               {navLinks.map((link) => (
-                <div key={link.name} className="flex flex-col items-center w-full">
+                <div key={link.id} className="flex flex-col items-center w-full">
                   {link.href.startsWith('/') ? (
                     <Link
                       to={link.href}
@@ -198,8 +209,12 @@ export default function Navbar() {
                         setMobileMenuOpen(false);
                         if (link.href.includes('#')) {
                           const hash = link.href.split('#')[1];
-                          if (location.pathname === '/') {
+                          if (location.pathname === '/admin/dashboard') {
                             e.preventDefault();
+                            setTimeout(() => {
+                              document.getElementById(hash)?.scrollIntoView({ behavior: 'smooth' });
+                            }, 100);
+                          } else if (location.pathname === '/') {
                             setTimeout(() => {
                               document.getElementById(hash)?.scrollIntoView({ behavior: 'smooth' });
                             }, 100);
@@ -208,7 +223,7 @@ export default function Navbar() {
                       }}
                       className="text-white hover:text-gray-300 transition-colors mb-4"
                     >
-                      {link.name}
+                      <EditableText id={`navbar-mobile-${link.id}`} defaultText={link.name} />
                     </Link>
                   ) : (
                     <a
@@ -216,7 +231,7 @@ export default function Navbar() {
                       onClick={() => setMobileMenuOpen(false)}
                       className="text-white hover:text-gray-300 transition-colors mb-4"
                     >
-                      {link.name}
+                      <EditableText id={`navbar-mobile-${link.id}`} defaultText={link.name} />
                     </a>
                   )}
                   
@@ -224,14 +239,18 @@ export default function Navbar() {
                     <div className="flex flex-col items-center gap-4 w-full bg-white/5 rounded-2xl py-6">
                       {link.dropdown.map((dropLink) => (
                         <Link
-                          key={dropLink.name}
+                          key={dropLink.id}
                           to={dropLink.href}
                           onClick={(e) => {
                             setMobileMenuOpen(false);
                             if (dropLink.href.includes('#')) {
                               const hash = dropLink.href.split('#')[1];
-                              if (location.pathname === '/') {
+                              if (location.pathname === '/admin/dashboard') {
                                 e.preventDefault();
+                                setTimeout(() => {
+                                  document.getElementById(hash)?.scrollIntoView({ behavior: 'smooth' });
+                                }, 100);
+                              } else if (location.pathname === '/') {
                                 setTimeout(() => {
                                   document.getElementById(hash)?.scrollIntoView({ behavior: 'smooth' });
                                 }, 100);
@@ -242,7 +261,7 @@ export default function Navbar() {
                             location.pathname === dropLink.href ? 'text-white font-bold' : 'text-gray-400 hover:text-white'
                           }`}
                         >
-                          {dropLink.name}
+                          <EditableText id={`navbar-mobile-${dropLink.id}`} defaultText={dropLink.name} />
                         </Link>
                       ))}
                     </div>

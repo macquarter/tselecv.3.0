@@ -1,6 +1,8 @@
 import { motion } from 'motion/react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import EditableText from '../components/admin/EditableText';
+import EditableImage from '../components/admin/EditableImage';
 
 export default function Facility() {
   const images = [
@@ -23,7 +25,7 @@ export default function Facility() {
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
             className="inline-block mb-6 px-4 py-1.5 rounded-full border border-white/10 bg-white/5 backdrop-blur-md text-sm font-medium text-gray-300"
           >
-            Facilities
+            <EditableText id="facility_badge" defaultText="Facilities" />
           </motion.div>
           <motion.h1 
             className="text-5xl md:text-7xl font-bold mb-8 tracking-tighter"
@@ -31,9 +33,9 @@ export default function Facility() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
           >
-            미래를 만드는 공간.<br />
+            <EditableText id="facility_title1" defaultText="미래를 만드는 공간." /><br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-200 to-gray-600">
-              스마트 팩토리.
+              <EditableText id="facility_title2" defaultText="스마트 팩토리." />
             </span>
           </motion.h1>
           <motion.p 
@@ -42,8 +44,8 @@ export default function Facility() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
           >
-            인천 로봇랜드에 위치한 최첨단 제조 시설에서<br className="hidden md:block" />
-            최고의 품질과 생산성을 실현합니다.
+            <EditableText id="facility_desc1" defaultText="인천 로봇랜드에 위치한 최첨단 제조 시설에서" /><br className="hidden md:block" />
+            <EditableText id="facility_desc2" defaultText="최고의 품질과 생산성을 실현합니다." />
           </motion.p>
         </section>
 
@@ -59,14 +61,19 @@ export default function Facility() {
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ duration: 0.8, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
               >
-                <img 
-                  src={img.src} 
+                <EditableImage 
+                  id={`facility_img_${i}`}
+                  defaultSrc={img.src} 
                   alt={img.title} 
                   className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105 opacity-80 group-hover:opacity-100"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent flex flex-col justify-end p-10">
-                  <h3 className="text-3xl font-bold mb-2 tracking-tight">{img.title}</h3>
-                  <p className="text-gray-400 font-light">{img.desc}</p>
+                  <h3 className="text-3xl font-bold mb-2 tracking-tight">
+                    <EditableText id={`facility_img_title_${i}`} defaultText={img.title} />
+                  </h3>
+                  <p className="text-gray-400 font-light">
+                    <EditableText id={`facility_img_desc_${i}`} defaultText={img.desc} />
+                  </p>
                 </div>
               </motion.div>
             ))}
@@ -83,7 +90,9 @@ export default function Facility() {
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
           >
             <div className="absolute inset-0 bg-gradient-to-b from-white/[0.02] to-transparent" />
-            <h2 className="text-3xl md:text-4xl font-bold mb-16 tracking-tight relative z-10">시설 규모 및 역량.</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-16 tracking-tight relative z-10">
+              <EditableText id="facility_stats_title" defaultText="시설 규모 및 역량." />
+            </h2>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-10 md:gap-16 relative z-10">
               {[
                 { num: '6,500', unit: 'm²', label: '총 시설 면적' },
@@ -93,10 +102,14 @@ export default function Facility() {
               ].map((stat, i) => (
                 <div key={i} className="flex flex-col items-center">
                   <div className="text-5xl md:text-6xl font-bold text-white mb-4 tracking-tighter">
-                    {stat.num}
-                    <span className="text-2xl md:text-3xl ml-1 text-gray-500 font-medium tracking-normal">{stat.unit}</span>
+                    <EditableText id={`facility_stat_num_${i}`} defaultText={stat.num} />
+                    <span className="text-2xl md:text-3xl ml-1 text-gray-500 font-medium tracking-normal">
+                      <EditableText id={`facility_stat_unit_${i}`} defaultText={stat.unit} />
+                    </span>
                   </div>
-                  <p className="text-gray-400 text-sm tracking-wide font-medium">{stat.label}</p>
+                  <p className="text-gray-400 text-sm tracking-wide font-medium">
+                    <EditableText id={`facility_stat_label_${i}`} defaultText={stat.label} />
+                  </p>
                 </div>
               ))}
             </div>

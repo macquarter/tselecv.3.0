@@ -1,4 +1,5 @@
 import { motion } from 'motion/react';
+import EditableText from './admin/EditableText';
 
 const clients = [
   { name: 'SAMSUNG', logo: 'SAMSUNG' },
@@ -17,7 +18,9 @@ export default function Clients() {
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center mb-10">
-          <h3 className="text-xs font-semibold tracking-[0.3em] text-gray-500 uppercase">Trusted by Innovative Companies</h3>
+          <h3 className="text-xs font-semibold tracking-[0.3em] text-gray-500 uppercase">
+            <EditableText id="clients_title" defaultText="Trusted by Innovative Companies" />
+          </h3>
         </div>
         
         <div className="flex overflow-hidden relative w-full">
@@ -33,7 +36,7 @@ export default function Clients() {
             {/* Triplicate the array for seamless infinite scrolling */}
             {[...clients, ...clients, ...clients].map((client, i) => (
               <div key={i} className="text-2xl md:text-3xl font-bold text-gray-700 hover:text-white transition-colors duration-500 tracking-tighter">
-                {client.logo}
+                <EditableText id={`client_logo_${i % clients.length}`} defaultText={client.logo} />
               </div>
             ))}
           </motion.div>

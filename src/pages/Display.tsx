@@ -2,6 +2,8 @@ import { motion } from 'motion/react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import ProductNav from '../components/ProductNav';
+import EditableText from '../components/admin/EditableText';
+import EditableImage from '../components/admin/EditableImage';
 
 export default function Display() {
   const specs = [
@@ -56,7 +58,7 @@ export default function Display() {
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
             className="inline-block mb-6 px-4 py-1.5 rounded-full border border-white/10 bg-white/5 backdrop-blur-md text-sm font-medium text-gray-300"
           >
-            Display Solutions
+            <EditableText id="disp_badge" defaultText="Display Solutions" />
           </motion.div>
           <motion.h1 
             className="text-5xl md:text-7xl font-bold mb-8 tracking-tighter"
@@ -64,9 +66,9 @@ export default function Display() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
           >
-            선명함의 기준.<br />
+            <EditableText id="disp_title1" defaultText="선명함의 기준." /><br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-200 to-gray-600">
-              디스플레이 제어.
+              <EditableText id="disp_title2" defaultText="디스플레이 제어." />
             </span>
           </motion.h1>
           <motion.p 
@@ -75,8 +77,8 @@ export default function Display() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
           >
-            다양한 LCD/LED 제어 및 고성능 디스플레이 솔루션으로<br className="hidden md:block" />
-            사용자 경험을 한 차원 높입니다.
+            <EditableText id="disp_desc1" defaultText="다양한 LCD/LED 제어 및 고성능 디스플레이 솔루션으로" /><br className="hidden md:block" />
+            <EditableText id="disp_desc2" defaultText="사용자 경험을 한 차원 높입니다." />
           </motion.p>
         </section>
 
@@ -84,14 +86,18 @@ export default function Display() {
         <section className="max-w-7xl mx-auto px-6 mb-32">
           <ProductNav />
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold mb-4 tracking-tight">제품 라인업</h2>
-            <p className="text-gray-400 font-light">다양한 디스플레이 제어 솔루션을 확인하세요.</p>
+            <h2 className="text-3xl font-bold mb-4 tracking-tight">
+              <EditableText id="disp_lineup_title" defaultText="제품 라인업" />
+            </h2>
+            <p className="text-gray-400 font-light">
+              <EditableText id="disp_lineup_desc" defaultText="다양한 디스플레이 제어 솔루션을 확인하세요." />
+            </p>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {specs.map((spec, i) => (
               <motion.div 
-                key={spec.title}
+                key={i}
                 className="group relative rounded-[2rem] overflow-hidden bg-[#0a0a0a] border border-white/5 block flex flex-col h-[400px]"
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -99,12 +105,17 @@ export default function Display() {
                 transition={{ duration: 0.8, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
               >
                 <div className="p-8 z-10 relative">
-                  <h3 className="text-2xl font-bold mb-2 tracking-tight group-hover:text-white transition-colors">{spec.title}</h3>
-                  <p className="text-gray-400 text-sm leading-relaxed font-light">{spec.desc}</p>
+                  <h3 className="text-2xl font-bold mb-2 tracking-tight group-hover:text-white transition-colors">
+                    <EditableText id={`disp_item_title_${i}`} defaultText={spec.title} />
+                  </h3>
+                  <p className="text-gray-400 text-sm leading-relaxed font-light">
+                    <EditableText id={`disp_item_desc_${i}`} defaultText={spec.desc} />
+                  </p>
                 </div>
                 <div className="absolute inset-0 top-1/4 mt-4 overflow-hidden rounded-b-[2rem]">
-                  <img 
-                    src={spec.img} 
+                  <EditableImage 
+                    id={`disp_item_img_${i}`}
+                    defaultSrc={spec.img} 
                     alt={spec.title} 
                     className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105 opacity-60 group-hover:opacity-90"
                   />

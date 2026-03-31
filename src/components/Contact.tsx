@@ -1,5 +1,6 @@
 import { motion } from 'motion/react';
 import { MapPin, Phone, Printer, Clock } from 'lucide-react';
+import EditableText from './admin/EditableText';
 
 export default function Contact() {
   return (
@@ -13,8 +14,8 @@ export default function Contact() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
             >
-              언제든지 <br />
-              연락주세요.
+              <EditableText id="contact-title-1" defaultText="언제든지" /> <br />
+              <EditableText id="contact-title-2" defaultText="연락주세요." />
             </motion.h2>
             <motion.p 
               className="text-xl text-gray-400 font-light mb-12"
@@ -23,18 +24,18 @@ export default function Contact() {
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
             >
-              제품 문의, 기술 상담, 납품 가격 문의 등 모든 문의에 신속하게 답변드립니다.
+              <EditableText id="contact-subtitle" defaultText="제품 문의, 기술 상담, 납품 가격 문의 등 모든 문의에 신속하게 답변드립니다." />
             </motion.p>
 
             <div className="space-y-8">
               {[
-                { icon: MapPin, label: 'Address', value: '인천광역시 서구 로봇랜드로 249번길 62-8' },
-                { icon: Phone, label: 'Telephone', value: '032-329-7600 ~ 7603' },
-                { icon: Printer, label: 'Fax', value: '032-329-7604' },
-                { icon: Clock, label: 'Business Hours', value: '평일 09:00 – 18:00 (주말·공휴일 휴무)' },
+                { id: 'address', icon: MapPin, label: 'Address', value: '인천광역시 서구 로봇랜드로 249번길 62-8' },
+                { id: 'phone', icon: Phone, label: 'Telephone', value: '032-329-7600 ~ 7603' },
+                { id: 'fax', icon: Printer, label: 'Fax', value: '032-329-7604' },
+                { id: 'hours', icon: Clock, label: 'Business Hours', value: '평일 09:00 – 18:00 (주말·공휴일 휴무)' },
               ].map((info, i) => (
                 <motion.div 
-                  key={info.label}
+                  key={info.id}
                   className="flex items-start gap-6"
                   initial={{ opacity: 0, x: -20 }}
                   whileInView={{ opacity: 1, x: 0 }}
@@ -45,8 +46,12 @@ export default function Contact() {
                     <info.icon size={20} />
                   </div>
                   <div>
-                    <div className="text-sm text-gray-500 font-semibold tracking-widest uppercase mb-1">{info.label}</div>
-                    <div className="text-lg font-medium text-white">{info.value}</div>
+                    <div className="text-sm text-gray-500 font-semibold tracking-widest uppercase mb-1">
+                      <EditableText id={`contact-${info.id}-label`} defaultText={info.label} />
+                    </div>
+                    <div className="text-lg font-medium text-white">
+                      <EditableText id={`contact-${info.id}-value`} defaultText={info.value} />
+                    </div>
                   </div>
                 </motion.div>
               ))}
@@ -61,28 +66,40 @@ export default function Contact() {
             transition={{ delay: 0.3 }}
           >
             <div className="absolute inset-0 bg-gradient-to-b from-white/[0.02] to-transparent pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-            <h3 className="text-2xl font-bold mb-2 text-white relative z-10 tracking-tight">문의 남기기</h3>
-            <p className="text-gray-400 mb-8 font-light relative z-10">빠른 시일 내 담당자가 연락드립니다.</p>
+            <h3 className="text-2xl font-bold mb-2 text-white relative z-10 tracking-tight">
+              <EditableText id="contact-form-title" defaultText="문의 남기기" />
+            </h3>
+            <p className="text-gray-400 mb-8 font-light relative z-10">
+              <EditableText id="contact-form-subtitle" defaultText="빠른 시일 내 담당자가 연락드립니다." />
+            </p>
             
             <form className="space-y-6 relative z-10" onSubmit={(e) => e.preventDefault()}>
               <div>
-                <label className="block text-sm font-medium text-gray-400 mb-2">회사명 / 성함</label>
+                <label className="block text-sm font-medium text-gray-400 mb-2">
+                  <EditableText id="contact-form-label-name" defaultText="회사명 / 성함" />
+                </label>
                 <input type="text" className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-white/30 transition-colors" placeholder="(주)태승전자 홍길동" />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-400 mb-2">연락처</label>
+                <label className="block text-sm font-medium text-gray-400 mb-2">
+                  <EditableText id="contact-form-label-phone" defaultText="연락처" />
+                </label>
                 <input type="tel" className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-white/30 transition-colors" placeholder="010-0000-0000" />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-400 mb-2">이메일</label>
+                <label className="block text-sm font-medium text-gray-400 mb-2">
+                  <EditableText id="contact-form-label-email" defaultText="이메일" />
+                </label>
                 <input type="email" className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-white/30 transition-colors" placeholder="example@company.com" />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-400 mb-2">문의 내용</label>
+                <label className="block text-sm font-medium text-gray-400 mb-2">
+                  <EditableText id="contact-form-label-message" defaultText="문의 내용" />
+                </label>
                 <textarea rows={4} className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-white/30 transition-colors resize-none" placeholder="제품명 및 문의 내용을 입력해주세요."></textarea>
               </div>
               <button className="w-full bg-white text-black font-medium rounded-xl px-4 py-4 hover:bg-gray-200 transition-colors">
-                문의 보내기
+                <EditableText id="contact-form-submit" defaultText="문의 보내기" />
               </button>
             </form>
           </motion.div>

@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Plus, Minus } from 'lucide-react';
+import EditableText from './admin/EditableText';
 
-const faqs = [
+const defaultFaqs = [
   {
     question: "태승일렉(TSELEC)은 어떤 기업인가요?",
     answer: "1989년 설립된 태승일렉은 마이크로컨트롤러 설계 및 제조를 시작으로, 현재는 반도체, 디스플레이, 가전, 의료기기 등 다양한 산업 분야의 핵심 제어 시스템과 자동화 솔루션을 제공하는 전문 기업입니다."
@@ -37,7 +38,7 @@ export default function FAQ() {
             viewport={{ once: true }}
             className="text-4xl md:text-5xl font-bold tracking-tighter text-white mb-4"
           >
-            자주 묻는 질문
+            <EditableText id="faq-title" defaultText="자주 묻는 질문" />
           </motion.h2>
           <motion.p 
             initial={{ opacity: 0, y: 20 }}
@@ -46,12 +47,12 @@ export default function FAQ() {
             transition={{ delay: 0.1 }}
             className="text-gray-400 text-lg font-light"
           >
-            태승일렉의 기술력과 서비스에 대해 궁금하신 점을 확인해 보세요.
+            <EditableText id="faq-subtitle" defaultText="태승일렉의 기술력과 서비스에 대해 궁금하신 점을 확인해 보세요." />
           </motion.p>
         </div>
 
         <div className="space-y-4">
-          {faqs.map((faq, index) => {
+          {defaultFaqs.map((faq, index) => {
             const isOpen = openIndex === index;
             return (
               <motion.div 
@@ -67,7 +68,7 @@ export default function FAQ() {
                   className="w-full flex items-center justify-between py-6 px-4 md:px-8 text-left focus:outline-none group"
                 >
                   <span className={`text-lg md:text-xl font-medium tracking-tight transition-colors duration-300 ${isOpen ? 'text-white' : 'text-gray-400 group-hover:text-gray-200'}`}>
-                    {faq.question}
+                    <EditableText id={`faq-q-${index}`} defaultText={faq.question} />
                   </span>
                   <div className={`ml-4 flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center border transition-all duration-300 ${isOpen ? 'border-blue-500 bg-blue-500/10 text-blue-400 rotate-180' : 'border-gray-700 text-gray-500 group-hover:border-gray-500'}`}>
                     {isOpen ? <Minus size={16} /> : <Plus size={16} />}
@@ -83,7 +84,7 @@ export default function FAQ() {
                       transition={{ duration: 0.3, ease: [0.32, 0.72, 0, 1] }}
                     >
                       <div className="px-4 md:px-8 pb-8 text-gray-400 font-light leading-relaxed">
-                        {faq.answer}
+                        <EditableText id={`faq-a-${index}`} defaultText={faq.answer} multiline />
                       </div>
                     </motion.div>
                   )}

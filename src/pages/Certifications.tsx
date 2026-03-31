@@ -1,6 +1,8 @@
 import { motion } from 'motion/react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import EditableText from '../components/admin/EditableText';
+import EditableImage from '../components/admin/EditableImage';
 
 export default function Certifications() {
   const certs = [
@@ -25,7 +27,7 @@ export default function Certifications() {
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
             className="inline-block mb-6 px-4 py-1.5 rounded-full border border-white/10 bg-white/5 backdrop-blur-md text-sm font-medium text-gray-300"
           >
-            Certifications
+            <EditableText id="cert_badge" defaultText="Certifications" />
           </motion.div>
           <motion.h1 
             className="text-5xl md:text-7xl font-bold mb-8 tracking-tighter"
@@ -33,9 +35,9 @@ export default function Certifications() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
           >
-            신뢰를 증명하는<br />
+            <EditableText id="cert_title1" defaultText="신뢰를 증명하는" /><br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-200 to-gray-600">
-              글로벌 스탠다드.
+              <EditableText id="cert_title2" defaultText="글로벌 스탠다드." />
             </span>
           </motion.h1>
           <motion.p 
@@ -44,8 +46,8 @@ export default function Certifications() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
           >
-            국제 표준과 엄격한 품질 관리를 통해<br className="hidden md:block" />
-            최고의 제품과 서비스를 제공합니다.
+            <EditableText id="cert_desc1" defaultText="국제 표준과 엄격한 품질 관리를 통해" /><br className="hidden md:block" />
+            <EditableText id="cert_desc2" defaultText="최고의 제품과 서비스를 제공합니다." />
           </motion.p>
         </section>
 
@@ -54,7 +56,7 @@ export default function Certifications() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {certs.map((cert, i) => (
               <motion.div 
-                key={cert.name}
+                key={i}
                 className="group relative bg-[#0a0a0a] border border-white/5 rounded-[2rem] p-10 hover:bg-[#111] transition-colors duration-500 overflow-hidden"
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -65,20 +67,29 @@ export default function Certifications() {
                 
                 <div className="relative z-10 flex flex-col h-full">
                   <div className="mb-6 h-48 rounded-xl overflow-hidden bg-[#1a1a1a] border border-white/5 relative">
-                    <img 
-                      src={cert.img} 
+                    <EditableImage 
+                      id={`cert_img_${i}`}
+                      defaultSrc={cert.img} 
                       alt={cert.name} 
                       className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700"
                     />
                   </div>
                   <div className="mb-auto">
-                    <h3 className="text-3xl font-bold mb-2 tracking-tight">{cert.name}</h3>
-                    <p className="text-gray-400 font-medium mb-6">{cert.krName}</p>
-                    <p className="text-gray-500 text-sm leading-relaxed font-light">{cert.desc}</p>
+                    <h3 className="text-3xl font-bold mb-2 tracking-tight">
+                      <EditableText id={`cert_name_${i}`} defaultText={cert.name} />
+                    </h3>
+                    <p className="text-gray-400 font-medium mb-6">
+                      <EditableText id={`cert_krName_${i}`} defaultText={cert.krName} />
+                    </p>
+                    <p className="text-gray-500 text-sm leading-relaxed font-light">
+                      <EditableText id={`cert_desc_${i}`} defaultText={cert.desc} />
+                    </p>
                   </div>
                   
                   <div className="mt-12 pt-6 border-t border-white/10 flex items-center justify-between">
-                    <span className="text-sm font-medium text-gray-300">{cert.year}</span>
+                    <span className="text-sm font-medium text-gray-300">
+                      <EditableText id={`cert_year_${i}`} defaultText={cert.year} />
+                    </span>
                     <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-white text-white group-hover:text-black transition-colors duration-300">
                       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                         <path d="M5 12h14M12 5l7 7-7 7"/>

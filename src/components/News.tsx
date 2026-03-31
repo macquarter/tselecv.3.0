@@ -1,30 +1,41 @@
 import { motion } from 'motion/react';
 import { ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import EditableText from './admin/EditableText';
+import { useBoard } from '../hooks/useBoard';
 
 export default function News() {
-  const newsItems = [
+  const { posts } = useBoard('news', [
     {
-      id: 1,
+      id: '1',
       category: '공지사항',
       title: '2026년 상반기 신제품 라인업 출시 안내',
+      content: '2026년 상반기 신제품 라인업 출시 안내입니다.',
       date: '2026.03.15',
-      isNew: true
+      author: '관리자',
+      views: 152
     },
     {
-      id: 2,
+      id: '2',
       category: '보도자료',
       title: '태승전자, 스마트팩토리 고도화 프로젝트 성공적 완료',
+      content: '태승전자, 스마트팩토리 고도화 프로젝트 성공적 완료',
       date: '2026.02.28',
-      isNew: false
+      author: '관리자',
+      views: 89
     },
     {
-      id: 3,
+      id: '3',
       category: '공지사항',
       title: 'ISO 14001 환경경영시스템 인증 갱신',
+      content: 'ISO 14001 환경경영시스템 인증 갱신',
       date: '2026.01.10',
-      isNew: false
+      author: '관리자',
+      views: 210
     }
-  ];
+  ]);
+
+  const recentPosts = posts.slice(0, 3);
 
   return (
     <section className="py-20 bg-black border-t border-white/5">
@@ -38,7 +49,7 @@ export default function News() {
               viewport={{ once: true }}
               transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
             >
-              뉴스 & 공지사항.
+              <EditableText id="news-title" defaultText="뉴스 & 공지사항." />
             </motion.h2>
             <motion.p 
               className="text-gray-400 font-light"
@@ -47,43 +58,40 @@ export default function News() {
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
             >
-              태승전자의 최신 소식을 전해드립니다.
+              <EditableText id="news-subtitle" defaultText="태승전자의 최신 소식을 전해드립니다." />
             </motion.p>
           </div>
-          <motion.button 
+          <Link 
+            to="/news"
             className="flex items-center gap-2 text-sm font-medium text-white hover:text-gray-300 transition-colors group"
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
           >
-            전체보기
+            <EditableText id="news-more-btn" defaultText="전체보기" />
             <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
-          </motion.button>
+          </Link>
         </div>
 
         <div className="flex flex-col gap-4">
-          {newsItems.map((item, i) => (
-            <motion.a
-              href="#"
+          {recentPosts.map((item, i) => (
+            <Link
+              to="/news"
               key={item.id}
               className="group flex flex-col sm:flex-row sm:items-center justify-between p-6 rounded-2xl bg-[#0a0a0a] border border-white/5 hover:bg-[#111] transition-colors duration-300 gap-4"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
             >
               <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-8">
-                <span className="text-sm font-medium text-gray-500 w-20">{item.category}</span>
+                <span className="text-sm font-medium text-gray-500 w-20">
+                  {item.category}
+                </span>
                 <h3 className="text-lg font-medium text-gray-200 group-hover:text-white transition-colors flex items-center gap-3">
                   {item.title}
-                  {item.isNew && (
+                  {i === 0 && (
                     <span className="px-2 py-0.5 rounded-full bg-white/10 text-white text-[10px] font-bold tracking-wider">NEW</span>
                   )}
                 </h3>
               </div>
-              <span className="text-sm text-gray-500 font-mono">{item.date}</span>
-            </motion.a>
+              <span className="text-sm text-gray-500 font-mono">
+                {item.date}
+              </span>
+            </Link>
           ))}
         </div>
       </div>

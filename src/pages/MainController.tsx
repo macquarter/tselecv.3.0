@@ -2,6 +2,8 @@ import { motion } from 'motion/react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import ProductNav from '../components/ProductNav';
+import EditableText from '../components/admin/EditableText';
+import EditableImage from '../components/admin/EditableImage';
 
 export default function MainController() {
   const specs = [
@@ -28,7 +30,7 @@ export default function MainController() {
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
             className="inline-block mb-6 px-4 py-1.5 rounded-full border border-white/10 bg-white/5 backdrop-blur-md text-sm font-medium text-gray-300"
           >
-            Main Controller
+            <EditableText id="mc_badge" defaultText="Main Controller" />
           </motion.div>
           <motion.h1 
             className="text-5xl md:text-7xl font-bold mb-8 tracking-tighter"
@@ -36,9 +38,9 @@ export default function MainController() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
           >
-            시스템의 완벽한 두뇌.<br />
+            <EditableText id="mc_title1" defaultText="시스템의 완벽한 두뇌." /><br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-200 to-gray-600">
-              메인 컨트롤러.
+              <EditableText id="mc_title2" defaultText="메인 컨트롤러." />
             </span>
           </motion.h1>
           <motion.p 
@@ -47,8 +49,8 @@ export default function MainController() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
           >
-            가전제품부터 산업용 장비까지,<br className="hidden md:block" />
-            최고의 성능과 안정성을 위한 핵심 제어 솔루션.
+            <EditableText id="mc_desc1" defaultText="가전제품부터 산업용 장비까지," /><br className="hidden md:block" />
+            <EditableText id="mc_desc2" defaultText="최고의 성능과 안정성을 위한 핵심 제어 솔루션." />
           </motion.p>
         </section>
 
@@ -64,8 +66,9 @@ export default function MainController() {
               className="relative rounded-[2rem] bg-[#0a0a0a] border border-white/5 p-8 flex items-center justify-center aspect-square overflow-hidden group"
             >
               <div className="absolute inset-0 bg-gradient-to-tr from-white/[0.05] to-transparent rounded-[2rem]" />
-              <img 
-                src="https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?auto=format&fit=crop&w=800&q=80" 
+              <EditableImage 
+                id="mc_img"
+                defaultSrc="https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?auto=format&fit=crop&w=800&q=80" 
                 alt="Main Controller" 
                 className="w-full h-full object-cover rounded-[1.5rem] relative z-10 transition-transform duration-1000 group-hover:scale-105 opacity-80"
               />
@@ -77,10 +80,11 @@ export default function MainController() {
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
             >
-              <h2 className="text-3xl md:text-4xl font-bold mb-6 tracking-tight">고성능 제어의 중심.</h2>
+              <h2 className="text-3xl md:text-4xl font-bold mb-6 tracking-tight">
+                <EditableText id="mc_content_title" defaultText="고성능 제어의 중심." />
+              </h2>
               <p className="text-gray-400 text-lg leading-relaxed mb-12 font-light">
-                다양한 산업 분야에서 요구하는 복잡한 제어 로직을 안정적으로 수행하는 메인 컨트롤러입니다. 
-                최신 MCU 기술을 적용하여 빠른 처리 속도와 높은 신뢰성을 보장하며, 고객의 요구사항에 맞춘 커스터마이징이 가능합니다.
+                <EditableText id="mc_content_desc" defaultText="다양한 산업 분야에서 요구하는 복잡한 제어 로직을 안정적으로 수행하는 메인 컨트롤러입니다. 최신 MCU 기술을 적용하여 빠른 처리 속도와 높은 신뢰성을 보장하며, 고객의 요구사항에 맞춘 커스터마이징이 가능합니다." />
               </p>
               
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -91,8 +95,12 @@ export default function MainController() {
                   { title: '신뢰성', desc: '엄격한 품질 관리로 99.5% 신뢰도 보장' }
                 ].map((feature, i) => (
                   <div key={i} className="bg-[#0a0a0a] border border-white/5 rounded-2xl p-6 hover:bg-[#111] transition-colors duration-300">
-                    <h3 className="text-white font-semibold mb-2 tracking-tight">{feature.title}</h3>
-                    <p className="text-gray-500 text-sm font-light leading-relaxed">{feature.desc}</p>
+                    <h3 className="text-white font-semibold mb-2 tracking-tight">
+                      <EditableText id={`mc_feat_title_${i}`} defaultText={feature.title} />
+                    </h3>
+                    <p className="text-gray-500 text-sm font-light leading-relaxed">
+                      <EditableText id={`mc_feat_desc_${i}`} defaultText={feature.desc} />
+                    </p>
                   </div>
                 ))}
               </div>
@@ -108,23 +116,37 @@ export default function MainController() {
             transition={{ duration: 0.8 }}
           >
             <div className="p-8 md:p-12 border-b border-white/10">
-              <h2 className="text-2xl font-bold">제품 상세 사양</h2>
+              <h2 className="text-2xl font-bold">
+                <EditableText id="mc_spec_title" defaultText="제품 상세 사양" />
+              </h2>
             </div>
             <div className="overflow-x-auto">
               <table className="w-full text-left border-collapse">
                 <thead>
                   <tr className="bg-white/5">
-                    <th className="p-6 text-red-500 font-bold text-sm tracking-wider uppercase border-b border-white/10">분류</th>
-                    <th className="p-6 text-red-500 font-bold text-sm tracking-wider uppercase border-b border-white/10">사양</th>
-                    <th className="p-6 text-red-500 font-bold text-sm tracking-wider uppercase border-b border-white/10">설명</th>
+                    <th className="p-6 text-red-500 font-bold text-sm tracking-wider uppercase border-b border-white/10">
+                      <EditableText id="mc_spec_col1" defaultText="분류" />
+                    </th>
+                    <th className="p-6 text-red-500 font-bold text-sm tracking-wider uppercase border-b border-white/10">
+                      <EditableText id="mc_spec_col2" defaultText="사양" />
+                    </th>
+                    <th className="p-6 text-red-500 font-bold text-sm tracking-wider uppercase border-b border-white/10">
+                      <EditableText id="mc_spec_col3" defaultText="설명" />
+                    </th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-white/10">
                   {specs.map((spec, i) => (
                     <tr key={i} className="hover:bg-white/5 transition-colors">
-                      <td className="p-6 font-medium text-gray-300">{spec.label}</td>
-                      <td className="p-6 text-white font-bold">{spec.value}</td>
-                      <td className="p-6 text-gray-400 text-sm">{spec.desc}</td>
+                      <td className="p-6 font-medium text-gray-300">
+                        <EditableText id={`mc_spec_label_${i}`} defaultText={spec.label} />
+                      </td>
+                      <td className="p-6 text-white font-bold">
+                        <EditableText id={`mc_spec_val_${i}`} defaultText={spec.value} />
+                      </td>
+                      <td className="p-6 text-gray-400 text-sm">
+                        <EditableText id={`mc_spec_desc_${i}`} defaultText={spec.desc} />
+                      </td>
                     </tr>
                   ))}
                 </tbody>
